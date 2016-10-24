@@ -20,6 +20,12 @@ let Planet = DS.defineResource({
         localKey: 'galaxyId',
       }
     },
+    hasMany: {
+      moon: {
+        localField: 'moons',
+        foreignKey: 'planetId'
+      }
+    }
   }
 })
 
