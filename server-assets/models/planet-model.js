@@ -2,7 +2,7 @@ let dataAdapter = require('./data-adapter'),
   uuid = dataAdapter.uuid,
   schemator = dataAdapter.schemator,
   DS = dataAdapter.DS,
-  formatQuery=dataAdapter.formatQuery;
+  formatQuery = dataAdapter.formatQuery;
 
 let Planet = DS.defineResource({
   name: 'planet',
@@ -16,27 +16,25 @@ let Planet = DS.defineResource({
         parent: true
       },
       galaxy: {
-          localField: 'galaxy',
-          localKey: 'galaxyId'
+        localField: 'galaxy',
+        localKey: 'galaxyId',
       }
     },
-
   }
 })
 
 
 function create(planet, cb) {
   // Use the Resource Model to create a new planet
-DS.find('star', planet.starId).then(function(star){
-
-  Planet.create({ 
-    id: uuid.v4(),
-    name: planet.name,
-    galaxyId: star.galaxyId})
-    .then(cb)
-    .catch(cb)
-}).catch(cb)
-
+  DS.find('star', planet.starId).then(function(star){
+    Planet.create({ 
+      id: uuid.v4(),
+      name: planet.name,
+      galaxyId: star.galaxyId, 
+      starId: planet.starId
+    })
+    .then(cb).catch(cb)
+  }).catch(cb)
 }
 
 function getAll(query, cb) {
@@ -54,3 +52,4 @@ module.exports = {
   getAll,
   getById
 }
+

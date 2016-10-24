@@ -19,7 +19,7 @@ router.route('/:id?')
     }
   })
   .post(function (req, res, next) {
-    Planet.create(req.body.name, function (planet) {
+    Planet.create(req.body, function (planet) {
       if(planet.stack) { return next(planet) }
       return res.send(planet)
     })
