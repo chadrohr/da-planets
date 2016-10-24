@@ -6,6 +6,12 @@ let uuid = require('node-uuid'),
   schemator = new Schemator(),
   DS = new JsData.DS();
 
+function formatQuery(query){
+  query = query || ''
+  return {
+    with: query.split(',').join(' ').split(' ')
+  }
+}
 // let adapter = new fbAdapter({
 //   basePath: 'https://firebase.com/whatever'
 // })
@@ -15,5 +21,6 @@ DS.registerAdapter('nedb', NeDbAdapter, { default: true })
 module.exports = {
   DS,
   uuid,
-  schemator
+  schemator,
+  formatQuery
 }
