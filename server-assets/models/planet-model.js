@@ -28,7 +28,24 @@ let Planet = DS.defineResource({
         }
     }
 })
-
+schemator.defineSchema('Planet',{
+    name: {
+        type: 'string',
+        nullable: false
+    },
+     id: {
+        type: 'string',
+        nullable: false
+    },
+    galaxyId: {
+        type: 'string',
+        nullable: false
+    },
+    starId: {
+        type: 'string',
+        nullable: false
+    }
+})
 
 function create(planet, cb) {
     // Use the Resource Model to create a new planet
