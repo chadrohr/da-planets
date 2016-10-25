@@ -2,7 +2,7 @@ let uuid = require('node-uuid'),
   JsData = require('js-data'),
   Schemator = require('js-data-schema'),
   NeDbAdapter = require('js-data-nedb'),
-  // fbAdapter = require('js-data-firebase'),
+  FBAdapter = require('js-data-firebase'),
   schemator = new Schemator(),
   DS = new JsData.DS();
 
@@ -12,11 +12,11 @@ function formatQuery(query){
     with: query.split(',').join(' ').split(' ')
   }
 }
-// let adapter = new fbAdapter({
-//   basePath: 'https://firebase.com/whatever'
-// })
+let fbAdapter = new FBAdapter({
+  basePath: 'https://da-planets-3964c.firebaseio.com/'
+})
 
-DS.registerAdapter('nedb', NeDbAdapter, { default: true })
+DS.registerAdapter('firebase', fbAdapter, { default: true })
 
 module.exports = {
   DS,

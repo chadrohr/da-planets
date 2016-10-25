@@ -1,3 +1,4 @@
+
 let dataAdapter = require('./data-adapter'),
   uuid = dataAdapter.uuid,
   schemator = dataAdapter.schemator,
@@ -17,13 +18,22 @@ let Moon = DS.defineResource({
       },
       star: {
         localField: 'star',
-        localKey: 'starId',
+        localKey: 'starId'
       },
       galaxy: {
         localField: 'galaxy',
-        localKey: 'galaxyId',
+        localKey: 'galaxyId'
       }
     },
+    hasMany: {
+      creature: [{
+        localField: 'creatures',
+        foreignKeys: 'moonIds'
+      }, {
+        localField: 'KnownCreatures',
+        localKeys: 'creatureIds'
+      }]
+    }
   }
 })
 
@@ -51,34 +61,28 @@ schemator.defineSchema('Moon', {
 })
 
 function create(moon, cb) {
-  // Use the Resource Model to create a new moon
-
-  DS.find('planet', moon.planetId).then(function(planet){
-    let moonObj = { 
+  DS.find('planet', moon.planetId).then(function (planet) {
+    let moonObj = {
       id: uuid.v4(),
       name: moon.name,
       planetId: moon.planetId,
-      galaxyId: planet.galaxyId, 
-      starId: planet.starId
+      starId: planet.starId,
+      galaxyId: planet.galaxyId
     }
-
     let error = schemator.validateSync('Moon', moonObj);
-    if(error){
-      return cb(error)
+    if (error) {
+      return cb(error);
     }
+    Moon.create(moonObj).then(cb).catch(cb)
 
-    Moon.create(moonObj)
-    .then(cb).catch(cb)
-  }).catch(cb)
+  }).catch(cb);
 }
 
 function getAll(query, cb) {
-  //Use the Resource Model to get all Galaxies
-  Moon.findAll({}, formatQuery(query)).then(cb).catch(cb)
+  Moon.findAll({}).then(cb).catch(cb)
 }
 
 function getById(id, query, cb) {
-  // use the Resource Model to get a single moon by its id
   Moon.find(id, formatQuery(query)).then(cb).catch(cb)
 }
 
