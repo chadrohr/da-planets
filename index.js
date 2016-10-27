@@ -6,7 +6,9 @@ let express = require('express'),
   server = express(),
   port = process.env.PORT || 1582,
   http = require('http').Server(server),
-  io = require('socket.io')(http);
+  io = require('socket.io')(http), 
+  Planet = require('./server-assets/models/planet-model'),
+  constants = require('./utils/constants');
 
 //Registers Middleware for server
 server.use(bodyParser.json())
@@ -24,8 +26,17 @@ server.get('/', function (req, res) {
 });
 
 io.on('connection', function (socket) {
-    socket.emit('COWABUNGA', {turtles: ['Mikey', 'Leo', 'Donnie', 'Raph']})
+    socket.emit(constants.COWABUNGA, {turtles: ['Mikey', 'Leo', 'Donnie', 'Raph']})
+
+    socket.on(constants.GIVEMEPLANETS, function(){
+      Planet.getAll({}, function(planets){
+        socket.emit(constants.PLANETSRECIEVED, planets)
+      })
+    })
+    
 });
+
+
 
 http.listen(port, function () {
   console.log(`Creating worlds on port: ${port}`);
