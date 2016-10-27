@@ -24,7 +24,7 @@ server.get('/', function (req, res) {
 });
 
 io.on('connection', function (socket) {
-  console.log('a user connected');
+    socket.emit('COWABUNGA', {turtles: ['Mikey', 'Leo', 'Donnie', 'Raph']})
 });
 
 http.listen(port, function () {
