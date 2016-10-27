@@ -24,9 +24,9 @@ server.get('/', function(req, res){
 io.on('connection', function(socket){
   console.log('a user connected');
 
-  setInterval(() => {
-    io.emit('update', 'Time is: ' + new Date().getTime());
-  }, 1000);
+  // setInterval(() => {
+  //   io.emit('update', 'Time is: ' + new Date().getTime());
+  // }, 1000);
   });
 http.listen(port, function () {
   console.log(`Creating worlds on port: ${port}`);
