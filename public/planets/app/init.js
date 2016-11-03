@@ -1,3 +1,7 @@
-;(function(){
-  angular.module('da-planets', [])
-}());
+
+; (function () {
+  angular.module('da-planets', [
+    'js-data',
+    'ui.router'
+  ])
+} ());
