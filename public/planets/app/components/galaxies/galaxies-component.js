@@ -1,6 +1,6 @@
 ;(function(){
 
-  angular.module('da-planets', [])
+  angular.module('da-planets')
     .component('universe', {
       template: `hello <button ng-click="$ctrl.loadStuff()">click me please</button>
         <div ng-repeat="g in $ctrl.galaxies">

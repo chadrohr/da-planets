@@ -9,40 +9,10 @@
 
   <universe></universe>
 
-  <button onclick="getPlanets()">GET PLANETS</button>
-
-  <div id="planets"></div>
-
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
 
-  <script src="app.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io();
-  socket.on('update', function(msg){
-    console.log('Update: ', msg)
-  })
-  socket.on('COWABUNGA', function(data){
-    console.log(data)
-  })
-
-  socket.on('PLANETSRECIEVED', function(planets){
-    var template = '' 
-    planets.forEach(function(planet){
-      template += `<div>${planet.name}</div>`
-    })
-    document.getElementById('planets').innerHTML = template;
-  })
-
-
-  function getPlanets(){
-    socket.emit('GIVE ME PLANETS')
-  }
-
-
-
-</script>
+  <script src="app/init.js"></script>
+  <script src="app/components/galaxies/galaxies-component.js"></script>
 
 </body>
 </html>
